@@ -9,9 +9,9 @@ const defaultConfig = Object.freeze({
 });
 
 const maxOrder = Number.MAX_SAFE_INTEGER;
-const defaultMainFile = 'index.js';
+const defaultStyleFile = 'style.css';
 
-function getMainNodeFiles(options) {
+function getStyleNodeFiles(options) {
 	const config = Object.assign({}, defaultConfig, options);
 	const packageJson = _getPackageJson(config.packageJsonPath);
 	if(!packageJson.dependencies) {
@@ -24,7 +24,7 @@ function getMainNodeFiles(options) {
 			const package = _getDefaultPackageDescription(config, key);
 
 			if(config.overrides && config.overrides[key]) {
-				package.main = _getOverridenPaths(config, key);
+				package.style = _getOverridenPaths(config, key);
 			}
 
 			if(config.order && Number.isInteger(config.order[key])) {
@@ -41,14 +41,14 @@ function getMainNodeFiles(options) {
 function _getDefaultPackageDescription(config, key) {
 	return {
 		key,
-		main: _getMainPackageFile(`${config.nodeModulesPath}/${key}`),
+		style: _getStylePackageFile(`${config.nodeModulesPath}/${key}`),
 		order: maxOrder
 	}
 }
 
-function _getMainPackageFile(modulePath) {
+function _getStylePackageFile(modulePath) {
 	var packageJson = _getPackageJson(`${modulePath}/package.json`);
-	return `${modulePath}/${packageJson.main || defaultMainFile}`;
+	return `${modulePath}/${packageJson.style || defaultStyleFile}`;
 }
 
 function _getPackageJson(path) {
@@ -61,11 +61,11 @@ function _getPackageJson(path) {
 }
 
 function _getOverridenPaths(config, key) {
-	const mainOverrides = config.overrides[key];
-	if(Array.isArray(mainOverrides)) {
-		return mainOverrides.map(p => `./${pathJoin(config.nodeModulesPath, key, p)}`);
+	const styleOverrides = config.overrides[key];
+	if(Array.isArray(styleOverrides)) {
+		return styleOverrides.map(p => `./${pathJoin(config.nodeModulesPath, key, p)}`);
 	} else {
-		return [`${config.nodeModulesPath}/${key}/${mainOverrides}`];
+		return [`${config.nodeModulesPath}/${key}/${styleOverrides}`];
 	}
 }
 
@@ -74,13 +74,13 @@ function _getOrderedPaths(packages, shouldSort) {
   var sortedPackages = shouldSort ? packages.sort(firstBy("order").thenBy("key")) : packages;
   sortedPackages
   	.forEach(pckg => {
-      if(Array.isArray(pckg.main)) {
-        result.push.apply(result, pckg.main);
+      if(Array.isArray(pckg.style)) {
+        result.push.apply(result, pckg.style);
       } else {
-        result.push(pckg.main);
+        result.push(pckg.style);
       }
     });
   return result;
 }
 
-module.exports = getMainNodeFiles;
+module.exports = getStyleNodeFiles;

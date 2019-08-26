@@ -1,14 +1,11 @@
 {
-  "name": "gulp-main-node-files",
+  "name": "gulp-style-node-files",
   "version": "1.1.0",
-  "description": "Allows to get main js files from installed node modules",
+  "description": "Allows to get style css files from installed node modules",
   "main": "index.js",
-  "scripts": {
-    "test": "./node_modules/.bin/jasmine"
-  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Blinnikov/gulp-main-node-files.git"
+    "url": "git+https://github.com/MSidabras/gulp-style-node-files.git"
   },
   "keywords": [
     "gulp",
@@ -18,14 +15,12 @@
     "node_modules"
   ],
   "author": "Igor Blinnikov",
+  "contributors": ["Martynas Sidabras"],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Blinnikov/gulp-main-node-files/issues"
+    "url": "https://github.com/MSidabras/gulp-style-node-files/issues"
   },
-  "homepage": "https://github.com/Blinnikov/gulp-main-node-files#readme",
-  "devDependencies": {
-    "jasmine": "^2.6.0"
-  },
+  "homepage": "https://github.com/MSidabras/gulp-style-node-files#readme",
   "dependencies": {
     "path.join": "^1.0.0",
     "thenby": "^1.2.3"
